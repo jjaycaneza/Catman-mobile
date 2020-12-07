@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gaisano_catman/screens/home_screen.dart';
-import 'package:gaisano_catman/services/localstorage.dart';
+import 'package:gaisano_catman/services/localstorage_service/localstorage.dart';
 
 import '../services/api_service/user_api.dart';
 import '../widgets/rounded_input.dart';
