@@ -10,16 +10,20 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
 
   TextEditingController _parentGroup = TextEditingController();
   TextEditingController _itemGroup = TextEditingController();
-  void getCountsheet() async{
+  void addCountsheet() async{
     CountsheetDB _countsheetDB = CountsheetDB();
-    dynamic res = await _countsheetDB.test();
+    dynamic res = await _countsheetDB.createCountsheet();
+    print("naa sa screen gyud");
     print(res);
   }
+ 
   @override
   void initState(){
-    // TODO: implement initState
+    
     super.initState();
-    getCountsheet();
+
+    addCountsheet();
+   
     
   }
   @override

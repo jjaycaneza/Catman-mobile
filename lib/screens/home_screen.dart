@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:gaisano_catman/services/database_service/countsheet_db.dart';
 
 
 import '../services/api_service/user_api.dart';
@@ -61,12 +62,21 @@ class _HomeScreenState extends State<HomeScreen> {
   
 
 
+  // Future<dynamic> getCountsheet() async{
+  //   dynamic response = await _userApi.getCountsheet();
+  //   setState(() {
+  //     countsheet = response;
+  //   });
+  //   // print(countsheet);
+  // }
   Future<dynamic> getCountsheet() async{
-    dynamic response = await _userApi.getCountsheet();
+    CountsheetDB _countsheetDB = CountsheetDB();
+    dynamic response = await _countsheetDB.readCountSheet();
+    print("naa sa screen gyud");
+    print(response);
     setState(() {
       countsheet = response;
     });
-    // print(countsheet);
   }
   Future<void> _showMyDialog() async{
     return showDialog<void>(
