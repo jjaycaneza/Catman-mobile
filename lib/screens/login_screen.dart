@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:gaisano_catman/api/user_api.dart';
 import 'package:gaisano_catman/screens/home_screen.dart';
-import 'package:gaisano_catman/service/localstorage.dart';
+import 'package:gaisano_catman/services/localstorage.dart';
 
-import '../api/user_api.dart' ;
+import '../services/api_service/user_api.dart';
 import '../widgets/rounded_input.dart';
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);

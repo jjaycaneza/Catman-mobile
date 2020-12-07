@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart' ;
-import '../model/countsheet.dart';
+import '../models/countsheet.dart';
 class DatabaseService{
   
   DatabaseService._privateConstructor();
@@ -26,9 +26,7 @@ class DatabaseService{
   }
   Future<int> create(Countsheet countSheet) async {
     Database db = await database;
-    var result = await db.rawInsert(
-      "INSERT INTO Customer (id,first_name, last_name, email)"
-      " VALUES (${countSheet.countId},${countSheet.itemGroupName},${countSheet.parentGroupName})");
+    var result = await db.rawInsert("");
     return result;
   }
 
