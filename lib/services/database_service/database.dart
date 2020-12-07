@@ -1,9 +1,13 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart' ;
-import '../models/countsheet.dart';
+import '../../models/countsheet.dart';
+import 'dart:convert';
+
 class DatabaseService{
   
   DatabaseService._privateConstructor();
+  static final DatabaseService instance = DatabaseService._privateConstructor();
+
   Future<dynamic> _createDatabase() async{
 
     String databasePath = await getDatabasesPath();
@@ -32,7 +36,7 @@ class DatabaseService{
 
   Future<dynamic> read(dynamic param) async {
     Database db = await database;
-    List<Map> results = await db.rawQuery('');
+    List<Map> results = await db.rawQuery('SELECT * FROM tbl_countsheet');
 
     if (results.length > 0) {
       return results;

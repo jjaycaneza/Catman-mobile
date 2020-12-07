@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaisano_catman/screens/home_screen.dart';
 import 'screens/login_screen.dart';
-import 'package:gaisano_catman/services/localstorage.dart';
+import 'package:gaisano_catman/services/localstorage_service/localstorage.dart';
 void main() {
   runApp(MyApp());
 }

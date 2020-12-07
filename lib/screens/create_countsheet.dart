@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaisano_catman/widgets/rounded_input.dart';
-
+import '../services/database_service/countsheet_db.dart';
 class CreateCountsheet extends StatefulWidget {
   @override
   _CreateCountsheetState createState() => _CreateCountsheetState();
@@ -10,7 +10,18 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
 
   TextEditingController _parentGroup = TextEditingController();
   TextEditingController _itemGroup = TextEditingController();
-
+  void getCountsheet() async{
+    CountsheetDB _countsheetDB = CountsheetDB();
+    dynamic res = await _countsheetDB.test();
+    print(res);
+  }
+  @override
+  void initState(){
+    // TODO: implement initState
+    super.initState();
+    getCountsheet();
+    
+  }
   @override
   Widget build(BuildContext context) {
    
