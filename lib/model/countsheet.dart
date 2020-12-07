@@ -3,7 +3,7 @@ class Countsheet {
   String itemGroupName;
   String parentGroupName;
   String countId;
-
+  
   Countsheet({this.itemGroupName, this.parentGroupName,this.countId});
 
 
@@ -11,7 +11,7 @@ class Countsheet {
   Countsheet.fromJson(Map<String,dynamic> json){
     itemGroupName = json['item_group_name'];
     parentGroupName = json['parent_group_name'];
-    countId = json['cound_id'];
+    countId = json['count_id'];
   }
 
   Map<String,dynamic> toJson(){

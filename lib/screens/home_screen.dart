@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
             FlatButton(
               child: Text("Logout"),
               onPressed: (){
-                UserLocalstorage().logout();
+                LocalstorageService().logout();
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>LoginScreen()));
                
               },

@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   String curUser = "";
   void getCurrentUser() async{
    
-    UserLocalstorage _userLocalstorage = UserLocalstorage();
+    LocalstorageService _userLocalstorage = LocalstorageService();
     Map<String,dynamic> response =  await _userLocalstorage.get();
     dynamic jsonResponse = response;
 

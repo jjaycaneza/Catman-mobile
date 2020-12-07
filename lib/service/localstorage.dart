@@ -1,11 +1,10 @@
 
 import 'dart:convert';
 
-import 'package:localstorage/localstorage.dart';
+// import 'package:localstorage/localstorage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/user.dart';
 
-class UserLocalstorage{
+class LocalstorageService{
   // final LocalStorage localstorage = new LocalStorage('gaisano.json');
   Future<Map<String,dynamic>> get() async {
    

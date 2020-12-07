@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> setCurrentUser(username,password) async{
    
-    UserLocalstorage _userLocalstorage = UserLocalstorage();
+    LocalstorageService _userLocalstorage = LocalstorageService();
     await _userLocalstorage.set(username,password);
     setState(() {
       curUser = username;
