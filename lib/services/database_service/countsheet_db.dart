@@ -1,17 +1,12 @@
-import 'package:gaisano_catman/screens/create_countsheet.dart';
 
 import 'database.dart';
-
-import 'dart:convert';
 import '../../models/countsheet.dart';
 class CountsheetDB{
   
   DatabaseService databaseService = DatabaseService.instance;
   
-  Future<dynamic> readCountSheet() async{
-    dynamic data =await databaseService.read("param");
-    Countsheet countsheet =  Countsheet(countId: "test",itemGroupName: "itemtest",parentGroupName: "parent",synced: 0,syncedDate: "01-02-2020",updated: 0);
-   
+  Future<List<Map<String,dynamic>>> readCountSheet() async{
+    List<Map<String,dynamic>> data = await databaseService.read("tbl_countsheet");
     return(data);
     
   }

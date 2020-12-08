@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:gaisano_catman/services/database_service/countsheet_db.dart';
-
-
-import '../services/api_service/user_api.dart';
 import 'create_countsheet.dart';
 import '../services/localstorage_service/localstorage.dart';
 import 'login_screen.dart';
@@ -91,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key:_scaffoldKey,
       appBar: AppBar(
-        title: Text('Homepage'),
+        title: Text('Count List'),
       ),
       body:ListView.builder(
         itemCount: countsheet.length,
