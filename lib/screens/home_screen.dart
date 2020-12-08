@@ -17,7 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  UserApi _userApi = UserApi();
+  // UserApi _userApi = UserApi();
+  CountsheetDB _countsheetDB = CountsheetDB();
   dynamic countsheet = [];
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -70,40 +71,14 @@ class _HomeScreenState extends State<HomeScreen> {
   //   // print(countsheet);
   // }
   Future<dynamic> getCountsheet() async{
-    CountsheetDB _countsheetDB = CountsheetDB();
+    
     dynamic response = await _countsheetDB.readCountSheet();
-    print("naa sa screen gyud");
     print(response);
     setState(() {
       countsheet = response;
     });
   }
-  Future<void> _showMyDialog() async{
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('No matched User.'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('Incorrect username or password. Please try again.')
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  
 
   @override
   void initState() {
@@ -112,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       key:_scaffoldKey,
       appBar: AppBar(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gaisano_catman/screens/home_screen.dart';
 import 'package:gaisano_catman/widgets/rounded_input.dart';
 import '../services/database_service/countsheet_db.dart';
+import 'dart:math';
 class CreateCountsheet extends StatefulWidget {
   @override
   _CreateCountsheetState createState() => _CreateCountsheetState();
@@ -10,19 +12,26 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
 
   TextEditingController _parentGroup = TextEditingController();
   TextEditingController _itemGroup = TextEditingController();
+  String _countId = "";
+  CountsheetDB _countsheetDB = CountsheetDB();
+  static const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   void addCountsheet() async{
-    CountsheetDB _countsheetDB = CountsheetDB();
-    dynamic res = await _countsheetDB.createCountsheet();
-    print("naa sa screen gyud");
-    print(res);
+    
+    dynamic res = await _countsheetDB.createCountsheet(_countId,_itemGroup.text,_parentGroup.text,0,DateTime.now().toString(),0);
+    
   }
  
   @override
   void initState(){
     
     super.initState();
-
-    addCountsheet();
+    setState(() {
+      _countId = getRandomString(10);
+    });
+   
    
     
   }
@@ -44,7 +53,7 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
                 hintText: "Count Id",
                 labelText: "Count Id"
               ),
-              initialValue: "sdfsf",
+              initialValue: _countId,
               readOnly: true,
               enabled: false,
               
@@ -68,7 +77,8 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
             padding: const EdgeInsets.all(8.0),
             child: FlatButton(
               onPressed: (){
-
+                 addCountsheet();
+                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(_)=> HomeScreen()));
               },
               color: Colors.blue,
               child: Row(
