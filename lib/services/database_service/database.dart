@@ -28,8 +28,31 @@ class DatabaseHelper{
 
     Batch batch = database.batch();
     batch.execute("DROP TABLE IF EXISTS tbl_countsheet");
-    batch.execute("""CREATE TABLE tbl_countsheet (countsheet_id INTEGER PRIMARY KEY  AUTOINCREMENT,
-        count_id TEXT,parent_group_name TEXT,item_group_name TEXT,synced INTEGER,synced_date DATETIME,updated INTEGER)""");
+    batch.execute("""CREATE TABLE tbl_countsheet (
+        countsheet_id INTEGER PRIMARY KEY  AUTOINCREMENT,
+        count_id TEXT,
+        brand_id INTEGER DEFAULT NULL,
+        color_id INTEGER DEFAULT NULL,
+        item_category_id INTEGER DEFAULT NULL,
+        item_form_id INTEGER DEFAULT NULL,
+        item_group_id INTEGER DEFAULT NULL,
+        item_subform_id INTEGER DEFAULT NULL,
+        item_variant_id INTEGER DEFAULT NULL,
+        parent_group_id INTEGER DEFAULT NULL,
+        size_id INTEGER DEFAULT NULL,
+        synced INTEGER DEFAULT 0,
+        synced_date DATETIME DEFAULT NULL,
+        updated INTEGER DEFAULT 0,
+        FOREIGN KEY (brand_id) REFERENCES tbl_brands (brand_id),
+        FOREIGN KEY (color_id) REFERENCES tbl_color (color_id),
+        FOREIGN KEY (item_category_id) REFERENCES tbl_item_category (item_category_id),
+        FOREIGN KEY (item_form_id) REFERENCES tbl_item_form (item_form_id),
+        FOREIGN KEY (item_group_id) REFERENCES tbl_item_group (item_group_id),
+        FOREIGN KEY (item_subform_id) REFERENCES tbl_item_subform (item_subform_id),
+        FOREIGN KEY (item_variant_id) REFERENCES tbl_item_variant (item_variant_id),
+        FOREIGN KEY (parent_group_id) REFERENCES tbl_parent_group (parent_group_id),
+        FOREIGN KEY (size_id) REFERENCES tbl_size (size_id)
+    )""");
     batch.execute("DROP TABLE IF EXISTS tbl_brands");
     batch.execute("""CREATE TABLE tbl_brands (
       brand_id INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
