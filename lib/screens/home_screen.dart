@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:gaisano_catman/services/database_service/countsheet_db.dart';
-
-
-import '../services/api_service/user_api.dart';
 import 'create_countsheet.dart';
 import '../services/localstorage_service/localstorage.dart';
 import 'login_screen.dart';
@@ -91,10 +88,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key:_scaffoldKey,
       appBar: AppBar(
-        title: Text('Homepage'),
+        title: Text('Count List'),
       ),
       body:ListView.builder(
-        itemCount: countsheet.length,
+        itemCount: countsheet != null ? countsheet.length:0 ,
+        reverse: true,
         itemBuilder: (BuildContext context , int idx){
           return ListTile(
               title: Text(
@@ -112,75 +110,115 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
+          
           children: <Widget>[
+            
             DrawerHeader(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.person,
-                    size: 80,    
-                  ),
-                  Text(widget.username ?? "")
-                ],
-              ),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
+              child:Text(""),
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
+              decoration: BoxDecoration(image: DecorationImage(image: AssetImage('assets/icon/logo.jpeg'),fit: BoxFit.cover,)),
             ),
-             FlatButton(
-              child: Text("Barcode Scanner",textAlign:TextAlign.left,),
-              onPressed: (){
-                print("Open Scanner");
-                scanBarcodeNormal();
 
-                _scaffoldKey.currentState.showSnackBar(
-                  SnackBar(
-                    content:Row(
-                          children: <Widget>[
-                            new CircularProgressIndicator(),
-                            new Text("Scanned: $_scanBarcode")
-                          ],
-                        ),
-                  )
-                );
-               
-              },
-            ),
-            FlatButton(
-              child: Text("QR Scanner",textAlign:TextAlign.left,),
-              onPressed: (){
-               
-                scanQR();
-                _scaffoldKey.currentState.showSnackBar(
-                  SnackBar(
-                    content:Row(
-                          children: <Widget>[
-                            new CircularProgressIndicator(),
-                            new Text("Scanned: $_scanBarcode")
-                          ],
-                        ),
-                  )
-                );
-               
-              },
-            ),
-            FlatButton(
-              child: Text("Barcode Scan Stream",textAlign:TextAlign.left,),
-              onPressed: (){
+            UserAccountsDrawerHeader( 
+              
+              margin: EdgeInsets.zero,
+              accountName: Text(widget.username),  
+              accountEmail: Text(""),  
+              currentAccountPicture: CircleAvatar(
                 
-                startBarcodeScanStream();
-               
-              },
+                backgroundColor: Colors.orange,  
+                child: Text(
+                  widget.username[0].toUpperCase(),  
+                  style: TextStyle(fontSize: 40.0),  
+                ),  
+              ),  
+            ),  
+            ListTile(
+              
+                contentPadding: EdgeInsets.symmetric(horizontal: 8,),
+                title: FlatButton(
+                  child: Row(
+                    
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children:<Widget>[
+                      Icon(Icons.camera),
+                      Text("Barcode Scanner",textAlign:TextAlign.left)
+                    ]
+                  ),
+                 
+                  padding: EdgeInsets.zero,
+                  onPressed: (){
+                    print("Open Scanner");
+                    scanBarcodeNormal();
+
+                    _scaffoldKey.currentState.showSnackBar(
+                      SnackBar(
+                        content:Row(
+                              children: <Widget>[
+                                new CircularProgressIndicator(),
+                                new Text("Scanned: $_scanBarcode")
+                              ],
+                            ),
+                      )
+                    );
+                 
+                },
+              ),
             ),
-            FlatButton(
-              child: Text("Logout"),
-              onPressed: (){
-                LocalstorageService().logout();
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>LoginScreen()));
-               
-              },
-            )
+            ListTile(
+              
+              contentPadding: EdgeInsets.symmetric(horizontal: 8,),
+              title: FlatButton(
+                child: Row(
+                  
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children:<Widget>[
+                    Icon(Icons.camera_alt),
+                    Text("QR Scanner",textAlign:TextAlign.left)
+                  ]
+                ),
+                
+                padding: EdgeInsets.zero,
+                onPressed: (){
+                  print("Open Scanner");
+                  scanQR();
+
+                  _scaffoldKey.currentState.showSnackBar(
+                    SnackBar(
+                      content:Row(
+                            children: <Widget>[
+                              new CircularProgressIndicator(),
+                              new Text("Scanned: $_scanBarcode")
+                            ],
+                          ),
+                    )
+                  );
+                
+                },
+              ),
+            ),
+            ListTile(
+            
+              contentPadding: EdgeInsets.symmetric(horizontal: 8),
+              title: FlatButton(
+                child: Row(
+                  
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children:<Widget>[
+                    Icon(Icons.exit_to_app),
+                    Text("Logout",textAlign:TextAlign.left)
+                  ]
+                ),
+                
+                padding: EdgeInsets.zero,
+                onPressed: (){
+                  LocalstorageService().logout();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>LoginScreen()));
+                },
+              ),
+            ),
+            
           ],
         ),
       ),
