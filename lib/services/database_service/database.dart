@@ -1,10 +1,10 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart' ;
 
-class DatabaseService{
+class DatabaseHelper{
   
-  DatabaseService._privateConstructor();
-  static final DatabaseService instance = DatabaseService._privateConstructor();
+  DatabaseHelper._privateConstructor();
+  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
   Future<dynamic> _createDatabase() async{
     print("creating db");
@@ -108,7 +108,7 @@ class DatabaseService{
       item_group_id INTEGER DEFAULT NULL,
       FOREIGN KEY (`item_group_id`) REFERENCES tbl_item_group (item_group_id)
     )""");
-    await batch.commit(noResult: true);
+    await batch.commit(noResult:true);
     dynamic res = await database.rawQuery("pragma table_info('tbl_size')");
     print(res);
 
