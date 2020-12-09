@@ -25,32 +25,88 @@ class DatabaseService{
   }
 
   void _populateDB(Database database,int version) async{
+    await database.execute("DROP TABLE IF EXISTS tbl_countsheet");
     await database.execute("""CREATE TABLE tbl_countsheet (countsheet_id INTEGER PRIMARY KEY  AUTOINCREMENT,
         count_id TEXT,parent_group_name TEXT,item_group_name TEXT,synced INTEGER,synced_date DATETIME,updated INTEGER)""");
-    // """CREATE TABLE contact_groups(
-    //     contact_id INTEGER,
-    //     group_id INTEGER,
-    //     PRIMARY KEY (contact_id, group_id),
-    //     FOREIGN KEY (contact_id) 
-    //         REFERENCES contacts (contact_id) 
-    //           ON DELETE CASCADE 
-    //           ON UPDATE NO ACTION,
-    //     FOREIGN KEY (group_id) 
-    //         REFERENCES groups (group_id) 
-    //           ON DELETE CASCADE 
-    //           ON UPDATE NO ACTION
-    //   )"""
+    await database.execute("DROP TABLE IF EXISTS tbl_brands");
     await database.execute("""CREATE TABLE tbl_brands (
-      brand_id INTEGER ,
+      brand_id INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
       brand_name text DEFAULT NULL,
       brand_code INTEGER DEFAULT NULL,
       brand_desc text DEFAULT NULL,
       parent_group_id INTEGER DEFAULT NULL,
-      PRIMARY KEY (brand_id),
       FOREIGN KEY (parent_group_id) REFERENCES tbl_parent_group (parent_group_id)
     )""");
-    database.batch();
-    dynamic res = await database.rawQuery("pragma table_info('tbl_brands')");
+    await database.execute("DROP TABLE IF EXISTS tbl_color");
+    await database.execute("""CREATE TABLE tbl_color (
+      color_id INTEGER PRIMARY KEY  AUTOINCREMENT NOT NULL,
+      color_name text DEFAULT NULL,
+      color_code INTEGER DEFAULT NULL,
+      color_desc text DEFAULT NULL,
+      item_group_id INTEGER DEFAULT NULL,
+      FOREIGN KEY (item_group_id) REFERENCES tbl_item_group (item_group_id)
+    )""");
+    await database.execute("DROP TABLE IF EXISTS tbl_item_category");
+    await database.execute("""CREATE TABLE tbl_item_category (
+      item_category_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      item_category_name text DEFAULT NULL,
+      item_category_code INTEGER DEFAULT NULL,
+      item_category_desc text DEFAULT NULL,
+      item_group_id INTEGER DEFAULT NULL,
+      FOREIGN KEY (item_group_id) REFERENCES tbl_item_group (item_group_id)
+    )""");
+    await database.execute("DROP TABLE IF EXISTS tbl_item_form");
+    await database.execute("""CREATE TABLE tbl_item_form (
+      item_form_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      item_form_name text DEFAULT NULL,
+      item_form_code INTEGER DEFAULT NULL,
+      item_form_desc text DEFAULT NULL,
+      item_category_id INTEGER DEFAULT NULL,
+      FOREIGN KEY (item_category_id) REFERENCES tbl_item_category (item_category_id)
+    )""");
+    await database.execute("DROP TABLE IF EXISTS tbl_item_group");
+    await database.execute("""CREATE TABLE tbl_item_group (
+      item_group_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      item_group_name text DEFAULT NULL,
+      item_group_code INTEGER DEFAULT NULL,
+      item_group_desc text DEFAULT NULL,
+      parent_group_id INTEGER DEFAULT NULL,
+      FOREIGN KEY (parent_group_id) REFERENCES tbl_parent_group (parent_group_id)
+    )""");
+    await database.execute("DROP TABLE IF EXISTS tbl_item_subform");
+    await database.execute("""CREATE TABLE tbl_item_subform (
+      item_subform_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      item_subform_name text DEFAULT NULL,
+      item_subform_code INTEGER DEFAULT NULL,
+      item_subform_desc text DEFAULT NULL,
+      item_form_id INTEGER DEFAULT NULL,
+      FOREIGN KEY (item_form_id) REFERENCES tbl_item_form (item_form_id)
+    )""");
+    await database.execute("DROP TABLE IF EXISTS tbl_item_variant");
+    await database.execute("""CREATE TABLE tbl_item_variant (
+      item_variant_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      item_variant_name text DEFAULT NULL,
+      item_variant_code INTEGER DEFAULT NULL,
+      item_variant_desc text DEFAULT NULL,
+      item_subform_id INTEGER DEFAULT NULL,
+      FOREIGN KEY (item_subform_id) REFERENCES tbl_item_subform (item_subform_id)
+    )""");
+    await database.execute("DROP TABLE IF EXISTS tbl_parent_group");
+    await database.execute("""CREATE TABLE tbl_parent_group (
+      parent_group_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+      parent_group_name text DEFAULT NULL,
+      parent_group_code INTEGER DEFAULT NULL
+    )""");
+    await database.execute("DROP TABLE IF EXISTS tbl_size");
+    await database.execute("""CREATE TABLE tbl_size (
+      size_id INTEGER NOT NULL  PRIMARY KEY AUTOINCREMENT,
+      size_name text DEFAULT NULL,
+      size_code INTEGER DEFAULT NULL,
+      size_desc text DEFAULT NULL,
+      item_group_id INTEGER DEFAULT NULL,
+      FOREIGN KEY (`item_group_id`) REFERENCES tbl_item_group (item_group_id)
+    )""");
+    dynamic res = await database.rawQuery("pragma table_info('tbl_size')");
     print(res);
 
   }
