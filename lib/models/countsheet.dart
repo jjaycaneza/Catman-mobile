@@ -1,5 +1,18 @@
 class Countsheet {
- 
+  // countsheet_id INTEGER PRIMARY KEY  AUTOINCREMENT,
+  // count_id TEXT,
+  // brand_id INTEGER DEFAULT NULL,
+  // color_id INTEGER DEFAULT NULL,
+  // item_category_id INTEGER DEFAULT NULL,
+  // item_form_id INTEGER DEFAULT NULL,
+  // item_group_id INTEGER DEFAULT NULL,
+  // item_subform_id INTEGER DEFAULT NULL,
+  // item_variant_id INTEGER DEFAULT NULL,
+  // parent_group_id INTEGER DEFAULT NULL,
+  // size_id INTEGER DEFAULT NULL,
+  // synced INTEGER DEFAULT 0,
+  // synced_date DATETIME DEFAULT NULL,
+  // updated INTEGER DEFAULT 0,
   String itemGroupName;
   String parentGroupName;
   String countId;

@@ -168,7 +168,7 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
               RoundedInput(
                 name:"Item Variant",
                 
-                controller:_otherVariant,
+                controller:_variant,
                 validator: (val){},
                 isPassword: false,
               ),
@@ -181,6 +181,13 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
               ),
               RoundedInput(
                 name:"Item Size",
+                
+                controller:_itemSize,
+                validator: (val){},
+                isPassword: false,
+              ),
+              RoundedInput(
+                name:"Other Item Size",
                 
                 controller:_otherItemSize,
                 validator: (val){},

@@ -10,9 +10,8 @@ class DatabaseHelper{
     print("creating db");
     
     String databasePath = await getDatabasesPath();
-    // deleteDatabase(join(databasePath,'gaisano_catman.db'));
     String dbPath = join(databasePath,'gaisano_catman.db');
-    deleteDatabase(dbPath);
+    // deleteDatabase(dbPath);
     return await openDatabase(dbPath,version:1,onCreate:_populateDB);
    
   }
