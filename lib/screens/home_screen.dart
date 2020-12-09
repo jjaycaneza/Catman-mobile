@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('Count List'),
       ),
       body:ListView.builder(
-        itemCount: countsheet.length,
+        itemCount: countsheet != null ? countsheet.length:0 ,
         reverse: true,
         itemBuilder: (BuildContext context , int idx){
           return ListTile(
