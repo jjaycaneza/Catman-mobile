@@ -131,8 +131,7 @@ class DatabaseHelper{
       FOREIGN KEY (`item_group_id`) REFERENCES tbl_item_group (item_group_id)
     )""");
     await batch.commit(noResult:true);
-    dynamic res = await database.rawQuery("pragma table_info('tbl_size')");
-    print(res);
+   
 
   }
   Future<int> create(String table,dynamic param) async {

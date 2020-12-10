@@ -10,23 +10,23 @@ class CreateCountsheet extends StatefulWidget {
 
 class _CreateCountsheetState extends State<CreateCountsheet> {
 
-  TextEditingController _parentGroup = TextEditingController();
-  TextEditingController _itemGroup = TextEditingController();
+  String _parentGroup = "One";
+  String _itemGroup = "";
+  String _itemCategory = "";
+  String _itemForm = "";
+  String _brand = "";
+  String _itemSubForm = "";
+  String _variant = "";
+  String _itemSize = "";
+  String _itemColor = "";
   TextEditingController _physicalLocation = TextEditingController();
   TextEditingController _stockNo = TextEditingController();
   TextEditingController _price = TextEditingController();
-  TextEditingController _brand = TextEditingController();
   TextEditingController _otherBrand = TextEditingController();
-  TextEditingController _itemCategory = TextEditingController();
-  TextEditingController _itemForm = TextEditingController();
   TextEditingController _otherItemForm = TextEditingController();
-  TextEditingController _itemSubForm = TextEditingController();
   TextEditingController _otherItemSubForm = TextEditingController();
-  TextEditingController _variant = TextEditingController();
   TextEditingController _otherVariant = TextEditingController();
-  TextEditingController _itemSize = TextEditingController();
   TextEditingController _otherItemSize = TextEditingController();
-  TextEditingController _itemColor = TextEditingController();
   TextEditingController _otherItemColor = TextEditingController();
   TextEditingController _itemDescription = TextEditingController();
   TextEditingController _auditRemarks = TextEditingController();
@@ -40,7 +40,7 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   void addCountsheet() async{
     
-    dynamic res = await _countsheetDB.createCountsheet(_countId,_itemGroup.text,_parentGroup.text,0,DateTime.now().toString(),0);
+    dynamic res = await _countsheetDB.createCountsheet(_countId,_itemGroup,_parentGroup,0,DateTime.now().toString(),0);
     
   }
  
@@ -103,26 +103,60 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
                 validator: (val){},
                 isPassword: false,
               ),
-              RoundedInput(
-                name:"Parent Group",
+              // RoundedInput(
+              //   name:"Parent Group",
                 
-                controller:_parentGroup ,
-                validator: (val){},
-                isPassword: false,
+              //   controller:_parentGroup ,
+              //   validator: (val){},
+              //   isPassword: false,
+              // ),
+              Container(child: Text("Parent Group",),alignment:Alignment.centerLeft,padding: EdgeInsets.only(left:16),),
+              Padding(
+                padding: EdgeInsets.all(0),
+                  child: Container(
+                    padding: EdgeInsets.only(left: 20,right: 25),
+                  
+                    child: DropdownButton<String>(
+                      hint: Text("hint"),
+                      value: _parentGroup,
+                      icon: Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      isExpanded: true,
+                      style: TextStyle(color: Colors.deepPurple),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.deepPurpleAccent,
+                        ),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          _parentGroup = newValue;
+                          print(_parentGroup);
+                        });
+                      },
+                      items:  <dynamic>['One', 'Two', 'Free', 'Four']
+                          .map<DropdownMenuItem<String>>((dynamic value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
               ),
-              RoundedInput(
-                name:"Item Group",
-                controller:_itemGroup ,
-                validator: (val){},
-                isPassword: false,
-              ),
-              RoundedInput(
-                name:"Brand",
+              // RoundedInput(
+              //   name:"Item Group",
+              //   controller:_itemGroup ,
+              //   validator: (val){},
+              //   isPassword: false,
+              // ),
+              // RoundedInput(
+              //   name:"Brand",
                 
-                controller:_brand ,
-                validator: (val){},
-                isPassword: false,
-              ),
+              //   controller:_brand ,
+              //   validator: (val){},
+              //   isPassword: false,
+              // ),
               RoundedInput(
                 name:"Other Brand",
                 
@@ -130,20 +164,20 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
                 validator: (val){},
                 isPassword: false,
               ),
-              RoundedInput(
-                name:"Item Category",
+              // RoundedInput(
+              //   name:"Item Category",
                 
-                controller:_itemCategory ,
-                validator: (val){},
-                isPassword: false,
-              ),
-              RoundedInput(
-                name:"Item Form",
+              //   controller:_itemCategory ,
+              //   validator: (val){},
+              //   isPassword: false,
+              // ),
+              // RoundedInput(
+              //   name:"Item Form",
                 
-                controller:_itemForm ,
-                validator: (val){},
-                isPassword: false,
-              ),
+              //   controller:_itemForm ,
+              //   validator: (val){},
+              //   isPassword: false,
+              // ),
               RoundedInput(
                 name:"Other Item Form",
                 
@@ -151,13 +185,13 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
                 validator: (val){},
                 isPassword: false,
               ),
-              RoundedInput(
-                name:"Item Sub Form",
+              // RoundedInput(
+              //   name:"Item Sub Form",
                 
-                controller:_itemSubForm,
-                validator: (val){},
-                isPassword: false,
-              ),
+              //   controller:_itemSubForm,
+              //   validator: (val){},
+              //   isPassword: false,
+              // ),
               RoundedInput(
                 name:"Other Item Sub Form",
                 
@@ -165,13 +199,13 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
                 validator: (val){},
                 isPassword: false,
               ),
-              RoundedInput(
-                name:"Item Variant",
+              // RoundedInput(
+              //   name:"Item Variant",
                 
-                controller:_variant,
-                validator: (val){},
-                isPassword: false,
-              ),
+              //   controller:_variant,
+              //   validator: (val){},
+              //   isPassword: false,
+              // ),
               RoundedInput(
                 name:"Other Item Variant",
                 
@@ -179,13 +213,13 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
                 validator: (val){},
                 isPassword: false,
               ),
-              RoundedInput(
-                name:"Item Size",
+              // RoundedInput(
+              //   name:"Item Size",
                 
-                controller:_itemSize,
-                validator: (val){},
-                isPassword: false,
-              ),
+              //   controller:_itemSize,
+              //   validator: (val){},
+              //   isPassword: false,
+              // ),
               RoundedInput(
                 name:"Other Item Size",
                 
@@ -193,13 +227,13 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
                 validator: (val){},
                 isPassword: false,
               ),
-              RoundedInput(
-                name:"Item Color",
+              // RoundedInput(
+              //   name:"Item Color",
                 
-                controller:_itemColor,
-                validator: (val){},
-                isPassword: false,
-              ),
+              //   controller:_itemColor,
+              //   validator: (val){},
+              //   isPassword: false,
+              // ),
               RoundedInput(
                 name:"Other Item Color",
                 
@@ -225,8 +259,9 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
                 padding: const EdgeInsets.all(8.0),
                 child: FlatButton(
                   onPressed: (){
-                    addCountsheet();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(_)=> HomeScreen()));
+                    print(_parentGroup);
+                    // addCountsheet();
+                    // Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(_)=> HomeScreen()));
                   },
                   color: Colors.blue,
                   child: Row(
