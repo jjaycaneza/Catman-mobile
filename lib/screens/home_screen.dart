@@ -2,10 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:gaisano_catman/services/database_service/countsheet_db.dart';
+
 import 'create_countsheet.dart';
 import '../services/localstorage_service/localstorage.dart';
 import 'login_screen.dart';
+import '../models/countsheet.dart';
 class HomeScreen extends StatefulWidget {
   final String username;
   HomeScreen({Key key,this.username}):super(key:key);
@@ -15,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // UserApi _userApi = UserApi();
-  CountsheetDB _countsheetDB = CountsheetDB();
+  // CountsheetDB _countsheetDB = CountsheetDB();
   dynamic countsheet = [];
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -69,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // }
   Future<dynamic> getCountsheet() async{
     
-    dynamic response = await _countsheetDB.readCountSheet();
+    dynamic response = await Countsheet().readCountSheet();
     print(response);
     setState(() {
       countsheet = response;

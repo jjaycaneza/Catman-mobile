@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gaisano_catman/models/countsheet.dart';
 import 'package:gaisano_catman/screens/home_screen.dart';
 import 'package:gaisano_catman/widgets/rounded_input.dart';
-import '../services/database_service/countsheet_db.dart';
 import 'dart:math';
 class CreateCountsheet extends StatefulWidget {
   @override
@@ -33,14 +33,14 @@ class _CreateCountsheetState extends State<CreateCountsheet> {
 
 
   String _countId = "";
-  CountsheetDB _countsheetDB = CountsheetDB();
+  // CountsheetDB _countsheetDB = CountsheetDB();
   static const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   Random _rnd = Random();
 
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   void addCountsheet() async{
     
-    dynamic res = await _countsheetDB.createCountsheet(_countId,_itemGroup,_parentGroup,0,DateTime.now().toString(),0);
+    dynamic res = await Countsheet().createCountsheet(_countId,_itemGroup,_parentGroup,0,DateTime.now().toString(),0);
     
   }
  
